@@ -1,0 +1,15 @@
+//Code for implementing sop expression for F(a,b,c,d) = m(0,1,2,13)
+//Dataflow model code
+module sop1(y1,a,b,c,d); // module name sop1
+input a,b,c,d;
+output y1;
+wire t1,t2,t3,t4,t5,t6,t7; //wire for temporary connections
+assign  t1 = ~a;
+assign t2 = ~b;
+assign t3 = ~c;
+assign t4 = ~d;
+assign t5 = t1&t2&t4;
+assign t6 = t1&t2&t3;
+assign t7 = a&b&t3&d;
+assign y1 = t5|t6|t7;
+endmodule
