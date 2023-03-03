@@ -1,0 +1,15 @@
+//Code for implementing sop expression for F(a,b,c,d) = m(0,1,2,13)
+//Structural code
+module sop(y1,a,b,c,d);	// module name sop
+input a,b,c,d;
+output y1;
+wire t1,t2,t3,t4;	//wire for temporary connections
+not n1(t1,a); //input for n1=a; output for n1=t1
+not n2(t2,b);
+not n3(t3,c);
+not n4(t4,d);
+and a1(t5,t1,t2,t4); //3-input and gate= t1,t2,t4; output=t5
+and a2(t6,t1,t2,t3);
+and a3(t7,a,b,t3,d);
+or o1(y1,t5,t6,t7); //3-input or gate = t5,t6,t7; output=y1
+endmodule
