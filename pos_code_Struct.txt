@@ -1,0 +1,17 @@
+//Code for implementing pos expression for F(a,b,c,d) = M(0,1,2,13)
+//Structural code
+module pos (y2,a,b,c,d); // module name pos
+input a,b,c,d;
+output y2;
+wire t1,t2,t3,t4,t5,t6,t7,t8; //wire for temporary connections
+not n1(t1,a); //input for n1=a; output for n1=t1
+not n2(t2,b);
+not n3(t3,c);
+not n4(t4,d);
+or o1(t5,a,t2); //2-input or gate= a,t2; output=t5
+or o2(t6,t1,d);
+or o3(t7,t3,t4);
+or o4(t8,t1,b);
+and a1(y2,t5,t6,t7,t8);//4-input and gate = t5,t6,t7,t8; output=y2
+endmodule
+
