@@ -1,0 +1,61 @@
+//Code for implementing an array multiplier
+
+// Full adder module where sum and carry are obtained
+module FA(a,b,cin,sum,cout);
+input a,b,cin;
+output sum,cout;
+assign sum=a^b^cin;
+assign cout=(a&b)|(b&cin)|(cin&a);
+endmodule
+
+
+//The arraymultiplier module where the FA is instantiated
+module array_mul(a,b,s);
+
+//Inputs
+input[3:0] a;
+input[3:0] b;
+
+//Outputs
+output[7:0]s;
+wire p00,p10,p20,p30,p01,p11,p21,p31,p03,p13,p23,p33,p02,p12,p22,p32,w1,w2,w3,w4,w5,w6,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11;
+
+//Partial products are assigned
+assign p00=a[0]&b[0];
+assign p01=a[0]&b[1];
+assign p02=a[0]&b[2];
+assign p03=a[0]&b[3];
+
+assign p10=a[1]&b[0];
+assign p11=a[1]&b[1];
+assign p12=a[1]&b[2];
+assign p13=a[1]&b[3];
+
+assign p20=a[2]&b[0];
+assign p21=a[2]&b[1];
+assign p22=a[2]&b[2];
+assign p23=a[2]&b[3];
+
+assign p30=a[3]&b[0];
+assign p31=a[3]&b[1];
+assign p32=a[3]&b[2];
+assign p33=a[3]&b[3];
+
+//The LSB value
+assign s[0]=p00;
+
+//Instantiated the 12 FA's
+FA fa1(p01,p10,0,s[1],d1);
+FA fa2(p11,p20,0,w1,d2);
+FA fa3(p30,p21,0,w2,d3);
+FA fa4(w1,d1,p02,s[2],d4);
+FA fa5(w2,d2,p12,w3,d5);
+FA fa6(p31,p22,d3,w4,d6);
+FA fa7(d4,w3,p03,s[3],d7);
+FA fa8(d5,w4,p13,w5,d8);
+FA fa9(d6,p32,p23,w6,d9);
+FA fa10(w5,d7,0,s[4],d10);
+FA f11(d8,w6,d10,s[5],d11);
+FA f12(d11,p33,d9,s[6],s[7]);
+
+endmodule
